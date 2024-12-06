@@ -1,0 +1,23 @@
+Mathias BOEFFEL
+
+16. Docker est un logiciel de conteneurisation. Il est utilisé pour permettre l'execution de plusieurs process sur une même machine
+physique tout en évitant les problèmes de dépendance. L'idée est de créer des applications "conteneurisées", qui sont executées
+avec toutes leurs dépendances.
+Ces applications conteneurisées sont en fait des processus isolés : il "se croient" seuls sur la machine physique.
+À la différence de la virtualisation, la conteneurisation permet l'execution de processus sur le même OS que la machine hôte.
+
+17. La CI, ou l'intégration continue, est une technique qui permet de s'assurer qu'un code commité ne fasse pas "régresser" l'application.
+C'est possible grâce à l'évaluation du contenu du commit.
+Le but est aussi de réduire la durée de la boucle de feedback grâce à l’automatisation.
+La boucle de feedback, c'est :
+commit push => linting (vérifier que le code respecte les conventions établies) => tests unitaire => build => 
+déploiement éphémère => test d’intégration (dans un environnement dédié)
+(test d’entrée sortie sur l’ensemble du code (on fait nos entrées et on regarde si nos sorties sont les bonnes)) 
+
+Le Deploiement continue, ou CD, est utile au déploiement de notre application dans différents environnements avant le dépoloiement en 
+prod. Il contient également une feedback loop :
+CI => env DEV => Auto Gate => Env QA => Auto Gate => Manual Gate	 => env Prod
+
+
+
+18. Le cours était très intéressant, dynamique et interactif

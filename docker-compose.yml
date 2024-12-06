@@ -1,0 +1,54 @@
+volumes:
+    superheroes:
+networks:
+    net:
+services:
+    db:
+        image: mysql:8
+        container_name: mysql
+        environment:
+            MYSQL_DATABASE: superheroes
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_USER: username
+            MYSQL_PASSWORD: password
+        volumes:
+            - superheroes:/var/lib/mysql:rw
+        networks: 
+            - net
+        healthcheck:
+            test: mysqladmin ping -h localhost
+            interval: 10s
+            timeout: 3s
+            retries: 3
+            
+            
+    
+    backend:
+        image: backend
+        build:
+            context: java
+            dockerfile: Dockerfile
+        networks: 
+            - net
+        environment:
+            SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/superheroes
+            SPRING_DATASOURCE_USERNAME: username
+            SPRING_DATASOURCE_PASSWORD: password
+        container_name: backend
+        depends_on:
+            - db
+        ports: 
+            - 8448:8448
+            
+            
+            
+    frontend:
+        image: frontend
+        build:
+            context: angular
+            dockerfile: Dockerfile
+        container_name: frontend
+        environment:
+            BACKEND_URL: http://localhost:8448
+        ports:
+            - 8888:4200
